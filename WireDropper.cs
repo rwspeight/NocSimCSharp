@@ -36,8 +36,9 @@ namespace PSU.NocSym.Core
             File.WriteAllLines(
                 @"Z:\Repos\NanowireNetwork\map.csv",
                 Lattice.DistanceToNodes.SelectMany(d => Enumerable.Repeat(d.Key.ToString(), d.Value.Count)));
-            File.Delete(Log);            
              */
+            File.Delete(Log);            
+             
         }
 
         /// <summary>
@@ -64,13 +65,8 @@ namespace PSU.NocSym.Core
         {
             double length = 0;
             do
-            {
-                // Generate the lookup outside the lambda to prevent potential for multiple calls.
-                var lookup = Random.NextDouble();
-                length = LengthMap.Where(l => l.Item1 >= lookup)
-                                  .Select(l => l.Item2)
-                                  .First();
-                
+            {                                
+                length = Lattice.AllowLengths[Random.Next(0, Lattice.AllowLengths.Count - 1)];
             }
             while(Distribution.IsAboveControl(length));
 

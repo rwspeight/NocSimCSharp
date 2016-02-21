@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PSU.NocSym.Core
 {
-    public class Node
+    public class Node : IComparable<Node>
     {
         public List<WireEnd> Connections { get; set; }
         public int Row { get; set; }
@@ -28,6 +29,29 @@ namespace PSU.NocSym.Core
         public bool IsConnectedTo(Node node)
         {
             return Connections.Any(e => e.OppositeEnd.Node == node);
-        }       
+        }
+
+        public int CompareTo(Node other)
+        {
+            if (this.Row < other.Row)
+            {
+                return -1;
+            }
+
+            if (this.Row == other.Row) 
+            {
+                if(this.Column < other.Column)
+                {
+                    return -1;
+                }
+
+                if (this.Column == other.Column)
+                {
+                    return 0;
+                }
+            }
+
+            return 1;            
+        }
     }
 }
