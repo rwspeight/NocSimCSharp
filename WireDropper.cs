@@ -37,7 +37,7 @@ namespace PSU.NocSym.Core
                 @"Z:\Repos\NanowireNetwork\map.csv",
                 Lattice.DistanceToNodes.SelectMany(d => Enumerable.Repeat(d.Key.ToString(), d.Value.Count)));
              */
-            File.Delete(Log);            
+            //File.Delete(Log);            
              
         }
 
@@ -70,7 +70,7 @@ namespace PSU.NocSym.Core
             }
             while(Distribution.IsAboveControl(length));
 
-            File.AppendAllLines(Log, new[] { length.ToString() });
+            //File.AppendAllLines(Log, new[] { length.ToString() });
 
             SquareLattice.InterNodeDistance pair = null;
             var nodePairs = Lattice.DistanceToNodes[length]

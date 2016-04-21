@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PSU.NocSym.Core
 {
@@ -24,7 +25,7 @@ namespace PSU.NocSym.Core
         }
 
         private void Populate()
-        {
+        {            
             Nodes = Enumerable.Range(0, Width)
                               .SelectMany(row => Enumerable.Range(0, Width)
                                                            .Select(column => new Node(row, column)))
@@ -37,13 +38,15 @@ namespace PSU.NocSym.Core
             // #& Think of a better temporary variables name other than reusing distances
             var distances =
             Nodes.ToArray()
+                 .AsParallel()
                  .SelectMany((n1, i) => Nodes.Skip(i + 1)
-                                            .Select(n2 => new InterNodeDistance
-                                            {
-                                                FromNode = n1,
-                                                ToNode = n2,
-                                                Distance = calculateDistance(n1, n2)
-                                            }))
+                                             .AsParallel()
+                                             .Select(n2 => new InterNodeDistance
+                                             {
+                                                 FromNode = n1,
+                                                 ToNode = n2,
+                                                 Distance = calculateDistance(n1, n2)
+                                             }))
                  .ToList();
 
             DistanceToNodes = 

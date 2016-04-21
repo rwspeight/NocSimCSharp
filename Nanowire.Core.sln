@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoCsym.Core", "NoCsym.Core.csproj", "{569B8F3D-F6F8-42CE-A81C-86037D858BE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NocSym", "..\NocSym\NocSym.csproj", "{83502863-7963-4EE7-9416-465EF8F4C826}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NocSim", "..\NocSym\NocSim.csproj", "{83502863-7963-4EE7-9416-465EF8F4C826}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "..\Sandbox\Sandbox.csproj", "{242BFDA8-E8DE-480C-BB90-50EC687075B4}"
 EndProject

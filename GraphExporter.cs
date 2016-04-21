@@ -12,36 +12,30 @@ namespace PSU.NocSym.Core
     public class GraphExporter
     {
         Stack<Color> Colors { get; set; }
-        SortedList<Node, Color> NodeToColor { get; set; }
+        SortedList<Node, Color> NodeToColor { get; set; }        
         public GraphExporter()
         {
-            NodeToColor = new SortedList<Node, Color>();
-            Colors = new Stack<Color>(
-            new[] {
-                Color.Red,
-                Color.Blue,
-                Color.Green,
-                Color.Orange,
-                Color.Brown,
-                Color.Yellow,
-                Color.Pink,
-                Color.Purple,
-                Color.Teal,
-                Color.Cyan,
-                Color.Magenta,
-                Color.Olive,
-                Color.Orchid,
-                Color.Sienna,
-                Color.SlateGray,
-                Color.Tomato,
-                Color.Peru,
-                Color.Lavender,
-                Color.Goldenrod,
-                Color.Gainsboro,
-                Color.Lime,
-                Color.MediumTurquoise,
-                Color.PowderBlue
-            });
+            Colors = new Stack<Color>();
+            GenerateColors();
+            NodeToColor = new SortedList<Node, Color>();            
+        }
+
+        private void GenerateColors()
+        {
+            var index = 0;
+            var rgb = new[] { 10, 10, 10 };
+            var r = new Random();
+
+            for (int x = 0; x < 120; ++x)
+            {
+                Colors.Push(Color.FromArgb(rgb[0], rgb[1], rgb[2]));
+                index = r.Next(0, 2);
+                rgb[index] += 10;
+                if (rgb[index] > 255)
+                {
+                    rgb[index] = 10;
+                }
+            }
         }
 
         public void Export(SquareLattice lattice, string path)
@@ -80,8 +74,12 @@ namespace PSU.NocSym.Core
             {
                 var nodes = new List<Node>();
                 GetGraphNodes(e.Vertex, nodes);
+                if (nodes.Count == 0)
+                {
+                    return;
+                }
                 color = Colors.Pop();
-
+                //NodeToColor.Add(e.Vertex, color);
                 nodes.ForEach(n => NodeToColor.Add(n, color));
             }
 
